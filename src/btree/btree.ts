@@ -6,6 +6,17 @@ export type BTree<T> = {
 
 export type GoTree = 'go_left' | 'go_right';
 
+export const toListleftOrder = <T>(
+  tree: BTree<T>,
+  list?: T[]
+) => {
+  list = list ? list : [];
+  list.push(tree.node);
+  if (tree.left) toListleftOrder(tree.left, list);
+  if (tree.rigth) toListleftOrder(tree.rigth, list);
+  return list;
+}
+
 export const insert = <T>(
   tree: BTree<T>,
   node: T,
