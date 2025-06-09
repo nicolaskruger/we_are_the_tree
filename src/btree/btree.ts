@@ -6,6 +6,17 @@ export type BTree<T> = {
 
 export type GoTree = 'go_left' | 'go_right';
 
+export const sequencial = <T>(tree: BTree<T>, list?: T[]): T[] => {
+  list = list ? list : [tree.node];
+
+  if (tree.left) list.push(tree.left.node)
+  if (tree.rigth) list.push(tree.rigth.node)
+  if (tree.left) sequencial(tree.left, list)
+  if (tree.rigth) sequencial(tree.rigth, list)
+
+  return list;
+}
+
 export const toListleftOrder = <T>(
   tree: BTree<T>,
   list?: T[]
