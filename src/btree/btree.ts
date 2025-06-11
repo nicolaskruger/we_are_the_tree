@@ -17,6 +17,40 @@ export const sequencial = <T>(tree: BTree<T>, list?: T[]): T[] => {
   return list;
 }
 
+const _redoLinked = <T>(list: T[], tree?: BTree<T>, stack?: BTree<T>[]): BTree<T> | null => {
+  if (!list.length) return null;
+  tree = tree ? tree : { node: list.pop()! };
+  stack = stack ? stack : [];
+  const left = list.pop();
+  const rigth = list.pop();
+  if (left) {
+    insert(tree, left, () => "go_left");
+    if (tree?.left) stack!.push(tree!.left!);
+  }
+  if (rigth) {
+    insert(tree, rigth, () => "go_right");
+    if (tree?.rigth) stack!.push(tree!.rigth!);
+  }
+  const subTree = stack.pop();
+  if (subTree)
+    _redoLinked(list, subTree, stack)
+  return tree;
+}
+export const linked = <T>(tree: BTree<T>, list?: T[]): T[] => {
+  list = list ? list : [];
+
+  list.push(tree.node);
+
+  if (tree.left) linked(tree.left, list)
+  if (tree.rigth) linked(tree.rigth, list)
+
+  return list;
+}
+
+export const redoLinked = <T>(list: T[], tree?: BTree<T>, stack?: BTree<T>[]): BTree<T> | null => {
+  return _redoLinked(list.reverse())
+}
+
 export const toListleftOrder = <T>(
   tree: BTree<T>,
   list?: T[]
