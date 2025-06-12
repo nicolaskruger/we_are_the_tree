@@ -81,3 +81,30 @@ export const insert = <T>(
 
   sw[go]();
 }
+
+export const postOrderNonRecursive = <T>(tree: BTree<T>): T[] => {
+  const resultList: T[] = [];
+  const cacheTreeList: BTree<T>[] = [tree];
+  let refTree: BTree<T> = tree;
+
+  const goLeft = (refTree: BTree<T>) => {
+    while (refTree.left) {
+      // cacheTreeList.push(refTree);
+      if (refTree.left) {
+        cacheTreeList.push(refTree.left);
+        refTree = refTree.left;
+      }
+    }
+  }
+
+  while (cacheTreeList.length) {
+    goLeft(refTree)
+    refTree = cacheTreeList.pop()!;
+    resultList.push(refTree.node);
+    if (refTree.rigth) {
+      cacheTreeList.push(refTree.rigth)
+      refTree = refTree.rigth;
+    }
+  }
+  return resultList;
+}
