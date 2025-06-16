@@ -10,7 +10,15 @@ export const preOrder = <T>(tree?: BTree<T>): T[] => {
   if (!tree) return []
   return [tree.node, ...preOrder(tree.left), ...preOrder(tree.rigth)]
 }
-
+export const hyerarqui = <T>(tree: BTree<T>, weight?: number, lines?: T[][]) => {
+  weight = weight ? weight : 0;
+  lines = lines ? lines : []
+  const wLine = lines[weight] || []
+  lines[weight] = [...wLine, tree.node]
+  if (tree.left) hyerarqui(tree.left, weight + 1, lines)
+  if (tree.rigth) hyerarqui(tree.rigth, weight + 1, lines)
+  return lines;
+}
 export const sequencial = <T>(tree: BTree<T>, list?: T[]): T[] => {
   list = list ? list : [tree.node];
 
