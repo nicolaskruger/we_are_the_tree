@@ -6,6 +6,11 @@ export type BTree<T> = {
 
 export type GoTree = 'go_left' | 'go_right';
 
+export const preOrder = <T>(tree?: BTree<T>): T[] => {
+  if (!tree) return []
+  return [tree.node, ...preOrder(tree.left), ...preOrder(tree.rigth)]
+}
+
 export const sequencial = <T>(tree: BTree<T>, list?: T[]): T[] => {
   list = list ? list : [tree.node];
 
