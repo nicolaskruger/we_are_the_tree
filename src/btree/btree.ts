@@ -36,6 +36,10 @@ const _redoLinked = <T>(list: T[], tree?: BTree<T>, stack?: BTree<T>[]): BTree<T
     _redoLinked(list, subTree, stack)
   return tree;
 }
+export const innorder = <T>(tree?: BTree<T>): T[] => {
+  if (!tree) return [];
+  return [...innorder(tree.left), tree.node, ...innorder(tree.rigth)];
+}
 export const linked = <T>(tree: BTree<T>, list?: T[]): T[] => {
   list = list ? list : [];
 
