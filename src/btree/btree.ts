@@ -128,3 +128,12 @@ export const postOrderNonRecursive = <T>(tree: BTree<T>): T[] => {
 export const count = <T>(tree?: BTree<T>): number => {
   return tree ? 1 + count(tree.left) + count(tree.rigth) : 0;
 }
+export const swap = <T>(tree: BTree<T>) => {
+  const left = tree?.left;
+  const rigth = tree?.rigth;
+  tree.left = rigth;
+  tree.rigth = left;
+  if (rigth) swap(rigth);
+  if (left) swap(left);
+}
+
