@@ -3,7 +3,6 @@ export type BTree<T> = {
   rigth?: BTree<T>,
   left?: BTree<T>
 };
-
 export type GoTree = 'go_left' | 'go_right';
 
 export const preOrder = <T>(tree?: BTree<T>): T[] => {
@@ -124,4 +123,8 @@ export const postOrderNonRecursive = <T>(tree: BTree<T>): T[] => {
     }
   }
   return resultList;
+}
+
+export const count = <T>(tree?: BTree<T>): number => {
+  return tree ? 1 + count(tree.left) + count(tree.rigth) : 0;
 }
