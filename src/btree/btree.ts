@@ -136,4 +136,18 @@ export const swap = <T>(tree: BTree<T>) => {
   if (rigth) swap(rigth);
   if (left) swap(left);
 }
+export const printree = <T>(tree?: BTree<T>, n?: number) => {
+  if (!tree) return
+  n = n ? n : 1;
+  const t = "\t".repeat(n);
+  console.log(`${t} node : ${tree.node}`)
+  if (tree.left) {
+    console.log(`${t} left :`)
+    printree(tree.left, n + 1);
+  }
+  if (tree.rigth) {
+    console.log(`${t} rigth :`)
+    printree(tree.rigth, n + 1)
+  }
+}
 
